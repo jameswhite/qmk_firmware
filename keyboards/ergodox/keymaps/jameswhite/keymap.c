@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_LALT,    KC_A,    KC_S,    KC_D,   KC_F,   KC_G,
        KC_LSFT,    KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,   KC_LGUI,
        KC_LCTRL, KC_FN0, KC_LEFT, KC_RGHT, KC_FN0,
-                                                         KC_LCTRL,  KC_LALT,
+                                                     LGUI(KC_C), LGUI(KC_V),
                                                                     KC_HOME,
                                                    KC_BSPC, KC_DEL,  KC_END,
         // right hand
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 [MDIA] = KEYMAP(
         // left hand
-        KC_FN3,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
+        LALT(KC_L),    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_MRWD, KC_MPLY, KC_MFFD,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_MUTE, KC_TRNS,
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                   KC_TRNS,
                                  KC_SPC,  KC_ENT, KC_TRNS,
         // right hand
-             KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,  KC_F12, KC_FN4,
+             KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,  KC_F12, LALT(LSFT(KC_R)),
            KC_TRNS, KC_TRNS, KC_P7,  KC_P8,  KC_P9,  KC_PMNS, KC_TRNS,
                     KC_PAST, KC_P4,  KC_P5,  KC_P6,  KC_PPLS, KC_TRNS,
            KC_TRNS, KC_PSLS, KC_P1,  KC_P2,  KC_P3,  KC_PENT, KC_TRNS,
@@ -61,10 +61,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM fn_actions[] = {
 //    [0] = ACTION_LAYER_MOMENTARY(1),                      // FN0 - Activate Layer 1
-//    [0] = ACTION_LAYER_TAP_TOGGLE(MDIA)                   // FN0 - Momentary Layer 1 (Media)
-      [0] = ACTION_LAYER_MOMENTARY(MDIA)                    // FN0 - Momentary Layer 1 (Media)
-//    [1] = ACTION_FUNCTION_TAP(COPY_KEY),                  // FN1 - LGui+C on tap, LGui on hold
-//    [2] = ACTION_FUNCTION_TAP(PASTE_KEY),                 // FN2 - LGui+V on tap, LGui on hold
+//    [0] = ACTION_LAYER_TAP_TOGGLE(MDIA),                  // FN0 - Momentary Layer 1 (Media)
+      [0] = ACTION_LAYER_MOMENTARY(MDIA),                   // FN0 - Momentary Layer 1 (Media)
+//    [1] = ACTION_MODS_TAP_KEY(KC_LGUI,LGUI(KC_C)),        // FN1 - Copy
+//    [2] = ACTION_MODS_TAP_KEY(KC_LGUI,LGUI(KC_V)),        // FN2 - Paste
 //    [3] = ACTION_MODS_KEY(MOD_LALT, KC_L),                // FN3 - Alt + L // Divvy left 1/3rd screen
 //    [4] = ACTION_MODS_KEY(MOD_LALT | MOD_LSFT, KC_R),     // FN4 - ALT + Shift + rAlt + L // Divvy right 2/3rds screen
 //    [5] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_CAPS),         // FN5 - CAPSLOCK on tap, Left Shift on hold
