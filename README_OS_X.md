@@ -1,4 +1,4 @@
-### get the build deps
+#### get the build deps
 ```
 brew tap osx-cross/avr
 brew install avr-libc
