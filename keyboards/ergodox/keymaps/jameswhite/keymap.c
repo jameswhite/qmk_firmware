@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_MRWD, KC_MPLY, KC_MFFD,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_MUTE, KC_TRNS,
-        KC_TRNS, KC_FN0,  KC_TRNS, KC_TRNS, KC_FN0,
+        RESET, KC_FN0,  KC_TRNS, KC_TRNS, KC_FN0,
                                          KC_TRNS, KC_TRNS,
                                                   KC_TRNS,
                                  KC_SPC,  KC_ENT, KC_TRNS,
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS, KC_TRNS, KC_P7,  KC_P8,  KC_P9,  KC_PMNS, KC_TRNS,
                     KC_PAST, KC_P4,  KC_P5,  KC_P6,  KC_PPLS, KC_TRNS,
            KC_TRNS, KC_PSLS, KC_P1,  KC_P2,  KC_P3,  KC_PENT, KC_TRNS,
-                            KC_FN0,  KC_P0, KC_DEL,   KC_FN0, KC_TRNS,
+                            KC_FN0,  KC_P0, KC_DEL,   KC_FN0,   RESET,
         KC_TRNS, KC_TRNS,
         KC_TRNS,
         KC_TRNS, KC_DEL, KC_BSPC
