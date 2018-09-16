@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host_driver.h"
 #include "vusb.h"
 #include "bootloader.h"
+#include <util/delay.h>
 
 
 static uint8_t vusb_keyboard_leds = 0;
@@ -46,19 +47,26 @@ typedef struct {
 
 static keyboard_report_t keyboard_report; // sent to PC
 
+#define VUSB_TRANSFER_KEYBOARD_MAX_TRIES 10
+
 /* transfer keyboard report from buffer */
 void vusb_transfer_keyboard(void)
 {
-    if (usbInterruptIsReady()) {
-        if (kbuf_head != kbuf_tail) {
-            usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
-            kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
-            if (debug_keyboard) {
-                print("V-USB: kbuf["); pdec(kbuf_tail); print("->"); pdec(kbuf_head); print("](");
-                phex((kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
-                print(")\n");
+    for (int i = 0; i < VUSB_TRANSFER_KEYBOARD_MAX_TRIES; i++) {
+        if (usbInterruptIsReady()) {
+            if (kbuf_head != kbuf_tail) {
+                usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
+                kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
+                if (debug_keyboard) {
+                    print("V-USB: kbuf["); pdec(kbuf_tail); print("->"); pdec(kbuf_head); print("](");
+                    phex((kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
+                    print(")\n");
+                }
             }
+            break;
         }
+        usbPoll();
+        _delay_ms(1);
     }
 }
 
@@ -280,7 +288,7 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x95, 0x06,          //   Report Count (6),
     0x75, 0x08,          //   Report Size (8),
     0x15, 0x00,          //   Logical Minimum (0),
-    0x25, 0xFF, 0x00,    //   Logical Maximum(255),
+    0x26, 0xFF, 0x00,    //   Logical Maximum(255),
     0x05, 0x07,          //   Usage Page (Key Codes),
     0x19, 0x00,          //   Usage Minimum (0),
     0x29, 0xFF,          //   Usage Maximum (255),
@@ -350,7 +358,7 @@ const PROGMEM uchar mouse_hid_report[] = {
     0xa1, 0x01,                    // COLLECTION (Application)
     0x85, REPORT_ID_SYSTEM,        //   REPORT_ID (2)
     0x15, 0x01,                    //   LOGICAL_MINIMUM (0x1)
-    0x25, 0xb7, 0x00,              //   LOGICAL_MAXIMUM (0xb7)
+    0x26, 0xb7, 0x00,              //   LOGICAL_MAXIMUM (0xb7)
     0x19, 0x01,                    //   USAGE_MINIMUM (0x1)
     0x29, 0xb7,                    //   USAGE_MAXIMUM (0xb7)
     0x75, 0x10,                    //   REPORT_SIZE (16)
