@@ -1,0 +1,17 @@
+#!/bin/bash
+HERE=$(cd $(dirname $0)/..; pwd)
+
+RENDERER=$(stat -f "%m" ${HERE}/script/keymap_renderer.pl);
+KEMAP=$(stat -f "%m" ${HERE}/script/keymap_renderer.pl);
+
+while [ 1 ] ; do
+  RENDERER_CHECK=$(stat -f "%m" ${HERE}/script/keymap_renderer.pl);
+  KEYMAP_CHECK=$(stat -f "%m" ${HERE}/keyboards/ergodox_ez/keymaps/jameswhite/keymap.c)
+  if [[ $RENDERER != $RENDERER_CHECK || $KEYMAP != $KEYMAP_CHECK ]]; then
+    clear;
+    ${HERE}/script/keymap_renderer.pl ${HERE}/keyboards/ergodox_ez/keymaps/jameswhite/keymap.c;
+    RENDERER=$RENDERER_CHECK;
+    KEYMAP=$KEYMAP_CHECK;
+  fi;
+  sleep 1
+done
